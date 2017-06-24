@@ -4,24 +4,24 @@
 
 	void  outer_points(int n, int m)
 	{
-		int *nachalo = new int[n]; // начало отрезка
-		int *konec = new int[n]; // конец отрезка
+		int *nachalo = new int[n]; // РЅР°С‡Р°Р»Рѕ РѕС‚СЂРµР·РєР°
+		int *konec = new int[n]; // РєРѕРЅРµС† РѕС‚СЂРµР·РєР°
 		for (int i = 0; i < n; i++)
 		{
 			cin >> nachalo[i] >> konec[i];
 		}
 		for (int i = 0; i < m; i++)
 		{
-			int tochka, kolvo = 0;
+			int tochka, kolvo = n;
 			cin >> tochka;
 			for (int k = 0; k < n; k++)
 			{
 				if (tochka <= konec[k] && tochka >= nachalo[k])
 				{
-					kolvo = kolvo + 1;
+					kolvo--;
 				}
 			}
-			cout << n - kolvo << " ";
+			cout << kolvo << " ";
 		}
 	}
 	int main()
