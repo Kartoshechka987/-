@@ -1,8 +1,8 @@
 #include <iostream>
 	using namespace std;
-	void qsort(int b, int e, int *&index, int *&fin)
+	void qsort(int lo, int hi, int *&index, int *&fin)
 	{
-		int l = b, r = e;
+		int l = lo, r = hi;
 		int piv = fin[index[(l + r) / 2]];
 		while (l <= r)
 		{
@@ -13,37 +13,25 @@
 			if (l <= r)
 				swap(index[l++], index[r--]);
 		}
-		if (b < r)
-			qsort(b, r, index, fin);
-		if (e > l)
-			qsort(l, e, index, fin);
+		if (lo < r)
+			qsort(lo, r, index, fin);
+		if (hi > l)
+			qsort(l, hi, index, fin);
 	}
 	void shedule(int n)
 	{
-		int *index = new int[n];
-		int *st = new int[n];
-		int *fin = new int[n];
-		int kolvo = 1, pred = 0;
+		int *index = new int[n]; //массив порядковых номеров занятий
+		int *st = new int[n]; //масств началаа занятия
+		int *fin = new int[n]; //масств конца занятия
+		int kolvo = 1, pred = 0; //колдичество подходящих заявок =1, потому что первая заявка будет подходящей; номер предыдущего подходящего занятия
 		for (int i = 0; i < n; i++)
 		{
 			cin >> st[i] >> fin[i];
 			index[i] = i;
 		}
-		qsort(0, n - 1, index, fin);
+		qsort(0, n - 1, index, fin);//сортировка по времени  конца занятия
 		for (int i = 0; i < n; i++)
 		{
-			if (st[index[i]] >= fin[index[pred]])
+			if (st[index[i]] >= fin[index[pred]])  // если очередная заявка начинается позже либо одновременно со временем окончания предыдущей подходящей
 			{
 				pred = i;
-				kolvo = kolvo + 1;
-			}
-		}
-		cout << kolvo;
-	}
-	int main()
-	{
-		int n;
-		cin >> n;
-		shedule(n);
-		return 0;
-	}
